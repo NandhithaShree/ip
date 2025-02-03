@@ -5,9 +5,9 @@ public class AddandList {
     String[] list = new String[100];
     String input;
     int index = 0;
-    int numberofTasks = 0;
+    int numberOfTasks = 0;
     public AddandList(){
-        System.out.println("Yo! Chitti's here!");
+        System.out.println("Hey! Chitti's here!");
         System.out.println("What can I do for you?");
         input = scanner.nextLine();
         while(!(input.equals("bye"))) {
@@ -15,15 +15,15 @@ public class AddandList {
                 list[index] = input;
                 System.out.println("added: " + input);
                 index++;
-                numberofTasks++;
+                numberOfTasks++;
                 input = scanner.nextLine();
             }
             else{
-                PrintList(list, numberofTasks);
+                PrintList(list, numberOfTasks);
                 input = scanner.nextLine();
             }
         }
-        System.out.println("Bye. Hit me up if you need help");
+        System.out.println("Bye. Call me if you need help");
     }
     public void PrintList(String[] list, int numberofTasks){
         int count = 0;
