@@ -5,6 +5,7 @@ public class MarkAsDone {
     Task[] list = new Task[100];
     String input;
     int numberOfTasks = 0;
+
     public MarkAsDone(){
         System.out.println("Hey! Chitti's here!");
         System.out.println("What can I do for you?");
@@ -47,10 +48,10 @@ public class MarkAsDone {
                 numberOfTasks++;
             }
             input = scanner.nextLine();
-
         }
         System.out.println("Bye. Call me if you need help");
     }
+
     public void printList(Task[] list, int numberOfTasks){
         int count = 0;
         while(count < numberOfTasks){
@@ -58,6 +59,7 @@ public class MarkAsDone {
             count++;
         }
     }
+
     public void numberOfTasksPrinter(int numberOfTasks){
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
     }

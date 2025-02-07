@@ -6,6 +6,7 @@ public class AddAndList {
     String input;
     int index = 0;
     int numberOfTasks = 0;
+
     public AddAndList(){
         System.out.println("Hey! Chitti's here!");
         System.out.println("What can I do for you?");
@@ -25,6 +26,7 @@ public class AddAndList {
         }
         System.out.println("Bye. Call me if you need help");
     }
+
     public void printList(String[] list, int numberofTasks){
         int count = 0;
         while(count < numberofTasks){

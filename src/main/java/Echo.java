@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class Echo {
     Scanner scanner = new Scanner(System.in);
     String input;
+
     public Echo() {
         System.out.println("Hey! Chitti's here!");
         System.out.println("What can I do for you?");
