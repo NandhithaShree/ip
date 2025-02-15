@@ -22,9 +22,14 @@ public class MarkAsDone {
                 list[Integer.parseInt(splittedInput[1]) - 1].removeDone();
                 System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
             } else if (input.startsWith("todo")) {
-                String[] splittedInput = input.split("", 2);
-                ToDo todo = new ToDo(splittedInput[1]);
-                addToDoDeadlineEvent(todo);
+                try {
+                    String[] splittedInput = input.split(" ", 2);
+                    ToDo todo = new ToDo(splittedInput[1]);
+                    addToDoDeadlineEvent(todo);
+                }
+                catch(IndexOutOfBoundsException index){
+                    System.out.println("Oops! Please write something after todo!");
+                }
             } else if(input.startsWith("deadline") && input.contains("/by")) {
                 //contains deadline, and the rest
                 String[] splittedInputSpace = input.split(" ", 2);
@@ -41,11 +46,13 @@ public class MarkAsDone {
                 String[] splittedInputTo = splittedInputFrom[1].split("/to");
                 Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
                 addToDoDeadlineEvent(event);
-            } else {
-                Task task = new Task(input);
-                list[numberOfTasks] = task;
-                System.out.println("added: " + input);
-                numberOfTasks++;
+            }
+            else {
+                System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
+//                Task task = new Task(input);
+//                list[numberOfTasks] = task;
+//                System.out.println("added: " + input);
+//                numberOfTasks++;
             }
             input = scanner.nextLine();
         }
