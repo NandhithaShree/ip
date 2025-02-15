@@ -1,0 +1,10 @@
+todo cs2113 hw
+deadline abc /by 9pm
+event def /from 9pm /to 10pm
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
