@@ -22,30 +22,52 @@ public class MarkAsDone {
                 list[Integer.parseInt(splittedInput[1]) - 1].removeDone();
                 System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
             } else if (input.startsWith("todo")) {
-                String[] splittedInput = input.split("", 2);
-                ToDo todo = new ToDo(splittedInput[1]);
-                addToDoDeadlineEvent(todo);
-            } else if(input.startsWith("deadline") && input.contains("/by")) {
-                //contains deadline, and the rest
-                String[] splittedInputSpace = input.split(" ", 2);
-                // splits into description and the by
-                String[] splittedInputBy = splittedInputSpace[1].split("/by", 2);
-                Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
-                addToDoDeadlineEvent(deadline);
-            } else if(input.startsWith("event") && input.contains("/from") && input.contains("/to")){
-                //splits to event, and rest
-                String[] splittedInputSpace = input.split(" ", 2);
-                //splits to string description, and after
-                String[] splittedInputFrom = splittedInputSpace[1].split("/from", 2);
-                //splits to from and to
-                String[] splittedInputTo = splittedInputFrom[1].split("/to");
-                Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
-                addToDoDeadlineEvent(event);
-            } else {
-                Task task = new Task(input);
-                list[numberOfTasks] = task;
-                System.out.println("added: " + input);
-                numberOfTasks++;
+                try {
+                    if (input.equals("todo")) {
+                        throw new ChittiException();
+                    }
+                    String[] splittedInput = input.split(" ", 2);
+                    ToDo todo = new ToDo(splittedInput[1]);
+                    addToDoDeadlineEvent(todo);
+                }
+                catch(ChittiException a){
+                    System.out.println("Oops! Please write something after todo!");
+                }
+            } else if(input.startsWith("deadline")) {
+                try {
+                    if(input.equals("deadline") | !input.contains("/by")){
+                        throw new ChittiException();
+                    }
+                    //contains deadline, and the rest
+                    String[] splittedInputSpace = input.split(" ", 2);
+                    // splits into description and the by
+                    String[] splittedInputBy = splittedInputSpace[1].split("/by", 2);
+                    Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
+                    addToDoDeadlineEvent(deadline);
+                }
+                catch(ChittiException b){
+                    System.out.println("Oops! Please write it in this format: deadline description /by date/time");
+                }
+            } else if(input.startsWith("event")){
+                try {
+                    if(input.equals("event") | !input.contains("/from") | !input.contains("/to")){
+                        throw new ChittiException();
+                    }
+                    //splits to event, and rest
+                    String[] splittedInputSpace = input.split(" ", 2);
+                    //splits to string description, and after
+                    String[] splittedInputFrom = splittedInputSpace[1].split("/from", 2);
+                    //splits to from and to
+                    String[] splittedInputTo = splittedInputFrom[1].split("/to");
+                    Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
+                    addToDoDeadlineEvent(event);
+                }
+                catch(ChittiException c){
+                    System.out.println("Oops! Please write it in this format: event description /from date/time /to date/time");
+                }
+            }
+            else {
+                System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
             }
             input = scanner.nextLine();
         }
