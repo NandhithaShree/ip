@@ -30,29 +30,35 @@ public class MarkAsDone {
                 catch(IndexOutOfBoundsException index){
                     System.out.println("Oops! Please write something after todo!");
                 }
-            } else if(input.startsWith("deadline") && input.contains("/by")) {
-                //contains deadline, and the rest
-                String[] splittedInputSpace = input.split(" ", 2);
-                // splits into description and the by
-                String[] splittedInputBy = splittedInputSpace[1].split("/by", 2);
-                Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
-                addToDoDeadlineEvent(deadline);
-            } else if(input.startsWith("event") && input.contains("/from") && input.contains("/to")){
-                //splits to event, and rest
-                String[] splittedInputSpace = input.split(" ", 2);
-                //splits to string description, and after
-                String[] splittedInputFrom = splittedInputSpace[1].split("/from", 2);
-                //splits to from and to
-                String[] splittedInputTo = splittedInputFrom[1].split("/to");
-                Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
-                addToDoDeadlineEvent(event);
+            } else if(input.startsWith("deadline")) {
+                try {
+                    //contains deadline, and the rest
+                    String[] splittedInputSpace = input.split(" ", 2);
+                    // splits into description and the by
+                    String[] splittedInputBy = splittedInputSpace[1].split("/by", 2);
+                    Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
+                    addToDoDeadlineEvent(deadline);
+                }
+                catch(IndexOutOfBoundsException index){
+                    System.out.println("Oops! Please write it in this format: deadline description /by date/time");
+                }
+            } else if(input.startsWith("event")){
+                try {
+                    //splits to event, and rest
+                    String[] splittedInputSpace = input.split(" ", 2);
+                    //splits to string description, and after
+                    String[] splittedInputFrom = splittedInputSpace[1].split("/from", 2);
+                    //splits to from and to
+                    String[] splittedInputTo = splittedInputFrom[1].split("/to");
+                    Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
+                    addToDoDeadlineEvent(event);
+                }
+                catch(IndexOutOfBoundsException index){
+                    System.out.println("Oops! Please write it in this format: event description /from date/time /to date/time");
+                }
             }
             else {
                 System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
-//                Task task = new Task(input);
-//                list[numberOfTasks] = task;
-//                System.out.println("added: " + input);
-//                numberOfTasks++;
             }
             input = scanner.nextLine();
         }
