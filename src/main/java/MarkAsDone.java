@@ -23,15 +23,21 @@ public class MarkAsDone {
                 System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
             } else if (input.startsWith("todo")) {
                 try {
+                    if (input.equals("todo")) {
+                        throw new ChittiException();
+                    }
                     String[] splittedInput = input.split(" ", 2);
                     ToDo todo = new ToDo(splittedInput[1]);
                     addToDoDeadlineEvent(todo);
                 }
-                catch(IndexOutOfBoundsException index){
+                catch(ChittiException a){
                     System.out.println("Oops! Please write something after todo!");
                 }
             } else if(input.startsWith("deadline")) {
                 try {
+                    if(input.equals("deadline") | !input.contains("/by")){
+                        throw new ChittiException();
+                    }
                     //contains deadline, and the rest
                     String[] splittedInputSpace = input.split(" ", 2);
                     // splits into description and the by
@@ -39,11 +45,14 @@ public class MarkAsDone {
                     Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
                     addToDoDeadlineEvent(deadline);
                 }
-                catch(IndexOutOfBoundsException index){
+                catch(ChittiException b){
                     System.out.println("Oops! Please write it in this format: deadline description /by date/time");
                 }
             } else if(input.startsWith("event")){
                 try {
+                    if(input.equals("event") | !input.contains("/from") | !input.contains("/to")){
+                        throw new ChittiException();
+                    }
                     //splits to event, and rest
                     String[] splittedInputSpace = input.split(" ", 2);
                     //splits to string description, and after
@@ -53,7 +62,7 @@ public class MarkAsDone {
                     Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
                     addToDoDeadlineEvent(event);
                 }
-                catch(IndexOutOfBoundsException index){
+                catch(ChittiException c){
                     System.out.println("Oops! Please write it in this format: event description /from date/time /to date/time");
                 }
             }
