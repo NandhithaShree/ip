@@ -66,8 +66,13 @@ public class MarkAsDone {
                 catch(ChittiException c){
                     System.out.println("Oops! Please write it in this format: event description /from date/time /to date/time");
                 }
-            }
-            else {
+            } else if (input.startsWith("delete")) {
+                String[] splittedInputSpace = input.split(" ", 2);
+                System.out.println("Okay! I've removed this task:" + "\n" + arraylist.get(Integer.parseInt(splittedInputSpace[1]) - 1));
+                arraylist.remove(Integer.parseInt(splittedInputSpace[1]) - 1);
+                numberOfTasks--;
+                numberOfTasksPrinter(numberOfTasks);
+            } else {
                 System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
             }
             input = scanner.nextLine();
