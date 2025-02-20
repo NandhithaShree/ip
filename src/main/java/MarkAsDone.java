@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarkAsDone {
     Scanner scanner =  new Scanner(System.in);
-    Task[] list = new Task[100];
+    ArrayList<Task> arraylist = new ArrayList<>();
     String input;
     int numberOfTasks = 0;
 
@@ -12,14 +13,14 @@ public class MarkAsDone {
         input = scanner.nextLine();
         while(!(input.equals("bye"))) {
             if(input.equals("list")){
-                printList(list, numberOfTasks);
+                printList(arraylist, numberOfTasks);
             } else if (input.startsWith("mark ")){
                 String[] splittedInput = input.split(" ");
-                list[Integer.parseInt(splittedInput[1]) - 1].addDone();
+                arraylist.get(Integer.parseInt(splittedInput[1]) - 1).addDone();
                 System.out.println("Hey, I marked this task as done. Nice job! Keep crushing it!");
             } else if (input.startsWith("unmark ")) {
                 String[] splittedInput = input.split(" ");
-                list[Integer.parseInt(splittedInput[1]) - 1].removeDone();
+                arraylist.get(Integer.parseInt(splittedInput[1]) - 1).removeDone();
                 System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
             } else if (input.startsWith("todo")) {
                 try {
@@ -74,10 +75,10 @@ public class MarkAsDone {
         System.out.println("Bye. Call me if you need help");
     }
 
-    public void printList(Task[] list, int numberOfTasks){
+    public void printList(ArrayList<Task> list, int numberOfTasks){
         int count = 0;
         while(count < numberOfTasks){
-            System.out.println(count+1 + "." + list[count].toString());
+            System.out.println(count+1 + "." + list.get(count).toString());
             count++;
         }
     }
@@ -87,7 +88,7 @@ public class MarkAsDone {
     }
 
     public void addToDoDeadlineEvent(Task task){
-        list[numberOfTasks] = task;
+        arraylist.add(task);
         System.out.println("Got it! Added this for you:");
         System.out.println(task);
         numberOfTasks++;
