@@ -102,6 +102,7 @@ public class MarkAsDone {
                 arrayList.remove(Integer.parseInt(splittedInputSpace[1]) - 1);
                 numberOfTasks--;
                 numberOfTasksPrinter(numberOfTasks);
+                addArrayToFile();
             } else {
                 System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
             }
