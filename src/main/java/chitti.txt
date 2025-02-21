@@ -1,5 +1,3 @@
-todo|0|a
-todo|0|xldnv
-event|0|ff | lasn | ldnrv
-deadline|0|abc | abc
-todo|0|ldnrvgl
+todo|true|lkjsen
+deadline|true|beshf | osaehnfc
+event|true|sjbv | leasnfh | lashn

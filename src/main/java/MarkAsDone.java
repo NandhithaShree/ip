@@ -27,10 +27,12 @@ public class MarkAsDone {
             } else if (input.startsWith("mark ")){
                 String[] splittedInput = input.split(" ");
                 arrayList.get(Integer.parseInt(splittedInput[1]) - 1).addDone();
+                addArrayToFile();
                 System.out.println("Hey, I marked this task as done. Nice job! Keep crushing it!");
             } else if (input.startsWith("unmark ")) {
                 String[] splittedInput = input.split(" ");
                 arrayList.get(Integer.parseInt(splittedInput[1]) - 1).removeDone();
+                addArrayToFile();
                 System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
             } else if (input.startsWith("todo")) {
                 try {
@@ -41,7 +43,7 @@ public class MarkAsDone {
                     ToDo todo = new ToDo(splittedInput[1]);
                     addToDoDeadlineEvent(todo);
                     try {
-                        writeToFile("todo|0|" + splittedInput[1]);
+                        writeToFile("todo|false|" + splittedInput[1], true);
                     }
                     catch(IOException ioException){
                         System.out.println("Something went wrong!");
@@ -62,7 +64,7 @@ public class MarkAsDone {
                     Deadline deadline = new Deadline(splittedInputBy[0], splittedInputBy[1]);
                     addToDoDeadlineEvent(deadline);
                     try {
-                        writeToFile("deadline|0|" + splittedInputBy[0] + "|" + splittedInputBy[1]);
+                        writeToFile("deadline|false|" + splittedInputBy[0] + "|" + splittedInputBy[1], true);
                     }
                     catch(IOException ioException){
                         System.out.println("Something went wrong!");
@@ -85,7 +87,7 @@ public class MarkAsDone {
                     Event event = new Event(splittedInputFrom[0], splittedInputTo[0], splittedInputTo[1]);
                     addToDoDeadlineEvent(event);
                     try {
-                        writeToFile("event|0|"+ splittedInputFrom[0] + "|" + splittedInputTo[0] + "|" + splittedInputTo[1]);
+                        writeToFile("event|false|"+ splittedInputFrom[0] + "|" + splittedInputTo[0] + "|" + splittedInputTo[1], true);
                     }
                     catch(IOException ioException){
                         System.out.println("Something went wrong!");
@@ -128,8 +130,8 @@ public class MarkAsDone {
         numberOfTasksPrinter(numberOfTasks);
     }
 
-    private static void writeToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter("./src/main/java/chitti.txt", true);
+    private static void writeToFile(String textToAdd, boolean append) throws IOException {
+        FileWriter fw = new FileWriter("./src/main/java/chitti.txt", append);
         fw.write(textToAdd + "\n");
         fw.close();
     }
@@ -137,32 +139,71 @@ public class MarkAsDone {
     public void addToArrayList() throws FileNotFoundException{
         File f = new File("./src/main/java/chitti.txt");
         Scanner s = new Scanner(f);
-        String line = s.nextLine();
+        String line;
         while (s.hasNextLine()) {
+            line = s.nextLine();
             if(line.startsWith("todo")){
                 ToDo todo = new ToDo(line.split("\\|")[2]);
-                if(line.startsWith("todo|1|")){
+                if(line.startsWith("todo|true|")){
                     todo.addDone();
                 }
                 arrayList.add(todo);
                 numberOfTasks++;
             } else if(line.startsWith("deadline")){
                 Deadline deadline = new Deadline(line.split("\\|")[2],line.split("\\|")[3]);
-                if(line.startsWith("deadline|1|")){
+                if(line.startsWith("deadline|true|")){
                     deadline.addDone();
                 }
                 arrayList.add(deadline);
                 numberOfTasks++;
             } else if(line.startsWith("event")){
                 Event event = new Event(line.split("\\|")[2],line.split("\\|")[3],line.split("\\|")[4]);
-                if(line.startsWith("event|1|")){
+                if(line.startsWith("event|true|")){
                     event.addDone();
                 }
                 arrayList.add(event);
                 numberOfTasks++;
             }
-            line = s.nextLine();
         }
     }
+
+    public void addArrayToFile(){
+        int i = 0;
+        boolean append = false;
+        while(i<numberOfTasks){
+            if(i != 0){
+                append = true;
+            }
+            Task currentTask = arrayList.get(i);
+            boolean isDone = currentTask.isDone;
+            if(currentTask.getClass() == ToDo.class){
+                try {
+                    writeToFile("todo|" + isDone + "|" + currentTask.description, append);
+                }
+                catch(IOException ioException){
+                    System.out.println("Something went wrong!");
+                }
+            }
+            else if(currentTask.getClass() == Deadline.class){
+                try {
+                    writeToFile("deadline|" + isDone + "|" + currentTask.description + "|" + ((Deadline) currentTask).by, append);
+                }
+                catch(IOException ioException){
+                    System.out.println("Something went wrong!");
+                }
+            }
+            else if(currentTask.getClass() == Event.class){
+                try {
+                    writeToFile("event|" + isDone + "|" + currentTask.description + "|" + ((Event) currentTask).from + "|" + ((Event) currentTask).to, append);
+                }
+                catch(IOException ioException){
+                    System.out.println("Something went wrong!");
+                }
+            }
+            i++;
+        }
+    }
+
 }
+
 
