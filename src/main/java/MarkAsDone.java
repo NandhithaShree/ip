@@ -113,6 +113,9 @@ public class MarkAsDone {
 
     public void printList(ArrayList<Task> list, int numberOfTasks){
         int count = 0;
+        if(numberOfTasks == 0){
+            System.out.println("YEY!You have no tasks");
+        }
         while(count < numberOfTasks){
             System.out.println(count+1 + "." + list.get(count).toString());
             count++;
