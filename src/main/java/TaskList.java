@@ -18,4 +18,15 @@ public class TaskList {
         ui.numberOfTasksPrinter();
         storage.addArrayToFile(arrayList, MarkAsDone.numberOfTasks);
     }
+
+    public static void find(ArrayList<Task> arrayList, String toFind){
+        Ui ui = new Ui();
+        int number = 1;
+        for(Task a : arrayList){
+            if(a.description.contains(toFind)){
+                ui.printTask(a, number);
+                number++;
+            }
+        }
+    }
 }
