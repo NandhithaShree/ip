@@ -1,9 +1,19 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * The {@code Parser} class is responsible for handling user input and executing commands
+ * that manipulate a list of tasks. It interacts with the {@code TaskList}, {@code Ui}, and {@code Storage}
+ * classes to perform operations such as listing tasks, marking tasks as done, adding tasks,
+ * and deleting tasks.
+ */
 public class Parser {
     TaskList taskList = new TaskList();
+    /**
+     * Parses user input and executes the corresponding command.
+     *
+     * @param arrayList The list of tasks to be manipulated based on user input.
+     */
     public void parse(ArrayList<Task> arrayList, Ui ui, Storage storage){
         Scanner scanner =  new Scanner(System.in);
         String input = scanner.nextLine();

@@ -1,8 +1,6 @@
-todo|false|lzsdrg
-todo|false|subef
+todo|true|subef
 todo|false|read book
 todo|false|buy book
-deadline|false|false|sell book | lskefhn
+deadline|false|false|false|false|sell book | lskefhn
 todo|false|sgj
 todo|false|slkjv
-todo|true|testing the file adding

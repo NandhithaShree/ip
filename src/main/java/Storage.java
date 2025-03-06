@@ -5,14 +5,32 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The {@code Storage} class is responsible for reading and writing task data to a file.
+ * It provides methods for writing task data to a file, adding tasks to an ArrayList from a file, and saving the updated list of tasks back to the file.
+ */
 public class Storage {
     public Storage(){}
+    /**
+     * Writes a specified text to Chitti.txt. The method allows the option to append the text to the file.
+     *
+     * @param textToAdd The text to be written to the file.
+     * @param append A boolean flag that indicates whether to append to the file (true) or overwrite it (false).
+     * @throws IOException If there is an error while writing to the file.
+     */
     public void writeToFile(String textToAdd, boolean append) throws IOException {
         FileWriter fw = new FileWriter("./src/main/java/chitti.txt", append);
         fw.write(textToAdd + "\n");
         fw.close();
     }
-
+    /**
+     * Adds tasks from a file into the provided ArrayList of tasks. It reads the file line by line,
+     * parses each task type (ToDo, Deadline, Event), and adds them to the ArrayList.
+     *
+     * @param arrayList The ArrayList of tasks where parsed tasks will be added.
+     * @param numberOfTasks The total number of tasks to be considered from the file.
+     * @throws FileNotFoundException If the file is not found or does not exist.
+     */
     public void addToArrayList(ArrayList<Task> arrayList, int numberOfTasks ) throws FileNotFoundException {
         File f = new File("./src/main/java/chitti.txt");
         Scanner s = new Scanner(f);
@@ -51,7 +69,14 @@ public class Storage {
             }
         }
     }
-
+    /**
+     * Saves the current ArrayList of tasks to a file. The method serializes each task's properties
+     * (including its completion status) and writes them in a specific format for each task type (ToDo, Deadline, Event).
+     * The data is appended to the file each time the method is called.
+     *
+     * @param arrayList The ArrayList of tasks to be saved to the file.
+     * @param numberOfTasks The total number of tasks to be saved.
+     */
     public void addArrayToFile(ArrayList<Task> arrayList, int numberOfTasks){
         int i = 0;
         boolean append = false;
