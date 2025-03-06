@@ -8,10 +8,10 @@ public class Ui {
 
     public void printList(ArrayList<Task> list){
         int count = 0;
-        if(MarkAsDone.numberOfTasks == 0){
+        if(Chitti.numberOfTasks == 0){
             System.out.println("YEY!You have no tasks");
         }
-        while(count < MarkAsDone.numberOfTasks){
+        while(count < Chitti.numberOfTasks){
             System.out.println(count+1 + "." + list.get(count).toString());
             count++;
         }
@@ -22,7 +22,7 @@ public class Ui {
     }
 
     public void numberOfTasksPrinter(){
-        System.out.println("Now you have " + MarkAsDone.numberOfTasks + " tasks in the list.");
+        System.out.println("Now you have " + Chitti.numberOfTasks + " tasks in the list.");
     }
 
     public void marked(){
