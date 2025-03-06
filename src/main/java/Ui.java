@@ -17,6 +17,10 @@ public class Ui {
         }
     }
 
+    public void printTask(Task task, int number){
+        System.out.println(number + "." + task);
+    }
+
     public void numberOfTasksPrinter(){
         System.out.println("Now you have " + MarkAsDone.numberOfTasks + " tasks in the list.");
     }

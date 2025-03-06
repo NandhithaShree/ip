@@ -90,6 +90,9 @@ public class Parser {
                 Task toBeDeleted = arrayList.get(Integer.parseInt(splittedInputSpace[1]) - 1);
                 ui.deleteMessage(toBeDeleted);
                 taskList.deleteTasks(Integer.parseInt(splittedInputSpace[1]) - 1, arrayList);
+            }else if (input.startsWith("find")){
+                String[] splittedInputSpace = input.split(" ", 2);
+                TaskList.find(arrayList, splittedInputSpace[1]);
             } else {
                 ui.nonExistantcommand();
             }

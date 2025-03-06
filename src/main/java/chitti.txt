@@ -1,1 +1,5 @@
 todo|false|lzsdrg
+todo|false|subef
+todo|false|read book
+todo|false|buy book
+deadline|false|sell book | lskefhn
