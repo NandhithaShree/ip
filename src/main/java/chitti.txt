@@ -1,6 +1,0 @@
-todo|true|subef
-todo|false|read book
-todo|false|buy book
-deadline|false|false|false|false|sell book | lskefhn
-todo|false|sgj
-todo|false|slkjv

@@ -28,10 +28,9 @@ public class Storage {
      * parses each task type (ToDo, Deadline, Event), and adds them to the ArrayList.
      *
      * @param arrayList The ArrayList of tasks where parsed tasks will be added.
-     * @param numberOfTasks The total number of tasks to be considered from the file.
      * @throws FileNotFoundException If the file is not found or does not exist.
      */
-    public void addToArrayList(ArrayList<Task> arrayList, int numberOfTasks ) throws FileNotFoundException {
+    public void addToArrayList(ArrayList<Task> arrayList ) throws FileNotFoundException {
         File f = new File("./src/main/java/chitti.txt");
         Scanner s = new Scanner(f);
         String line;
@@ -46,9 +45,9 @@ public class Storage {
                 arrayList.add(todo);
                 Chitti.numberOfTasks++;
             } else if(line.startsWith("deadline")){
-                String[] inputSplitByPipe = line.split("\\|",3);
-                String description = inputSplitByPipe[1];
-                String deadline = inputSplitByPipe[2];
+                String[] inputSplitByPipe = line.split("\\|",4);
+                String description = inputSplitByPipe[2];
+                String deadline = inputSplitByPipe[3];
                 Deadline taskDeadline = new Deadline(description, deadline);
                 if(line.startsWith("deadline|true|")){
                     taskDeadline.addDone();
@@ -56,10 +55,10 @@ public class Storage {
                 arrayList.add(taskDeadline);
                 Chitti.numberOfTasks++;
             } else if(line.startsWith("event")){
-                String[] inputSplitByPipe = line.split("\\|",4);
-                String description = inputSplitByPipe[1];
-                String from = inputSplitByPipe[2];
-                String to = inputSplitByPipe[3];
+                String[] inputSplitByPipe = line.split("\\|",5);
+                String description = inputSplitByPipe[2];
+                String from = inputSplitByPipe[3];
+                String to = inputSplitByPipe[4];
                 Event event = new Event(description, from, to);
                 if(line.startsWith("event|true|")){
                     event.addDone();

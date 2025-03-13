@@ -1,3 +1,1 @@
-public class ChittiException extends Exception{
-
-}
+public class ChittiException extends Exception{}

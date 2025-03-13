@@ -21,19 +21,35 @@ public class Parser {
             if(input.equals("list")){
                 ui.printList(arrayList);
             } else if (input.startsWith("mark ")){
-                String[] inputParts = input.split(" ");
-                String taskToBeMarked = inputParts[1];
-                int indexOfTaskToBeMarked = Integer.parseInt(taskToBeMarked) - 1;
-                arrayList.get(indexOfTaskToBeMarked).addDone();
-                storage.addArrayToFile(arrayList, Chitti.numberOfTasks);
-                ui.marked();
+                try {
+                    String[] inputParts = input.split(" ");
+                    String taskToBeMarked = inputParts[1];
+                    int indexOfTaskToBeMarked = Integer.parseInt(taskToBeMarked) - 1;
+                    if (indexOfTaskToBeMarked + 1 > Chitti.numberOfTasks | indexOfTaskToBeMarked < 0) {
+                        throw new ChittiException();
+                    }
+                    arrayList.get(indexOfTaskToBeMarked).addDone();
+                    storage.addArrayToFile(arrayList, Chitti.numberOfTasks);
+                    ui.marked();
+                }
+                catch(ChittiException exception){
+                    ui.invalidIndexForMark();
+                }
             } else if (input.startsWith("unmark ")) {
-                String[] inputParts = input.split(" ");
-                String taskToBeUnmarked = inputParts[1];
-                int indexOfTaskToBeMarked = Integer.parseInt(taskToBeUnmarked) - 1;
-                arrayList.get(indexOfTaskToBeMarked).removeDone();
-                storage.addArrayToFile(arrayList, Chitti.numberOfTasks);
-                ui.unmarked();
+                try {
+                    String[] inputParts = input.split(" ");
+                    String taskToBeUnmarked = inputParts[1];
+                    int indexOfTaskToBeUnmarked = Integer.parseInt(taskToBeUnmarked) - 1;
+                    if (indexOfTaskToBeUnmarked + 1 > Chitti.numberOfTasks | indexOfTaskToBeUnmarked < 0) {
+                        throw new ChittiException();
+                    }
+                    arrayList.get(indexOfTaskToBeUnmarked).removeDone();
+                    storage.addArrayToFile(arrayList, Chitti.numberOfTasks);
+                    ui.unmarked();
+                }
+                catch(ChittiException exception){
+                    ui.invalidIndexForUnmark();
+                }
             } else if (input.startsWith("todo")) {
                 try {
                     if (input.equals("todo")) {
@@ -98,13 +114,20 @@ public class Parser {
                     ui.wrongEventFormat();
                 }
             } else if (input.startsWith("delete")) {
-                String[] inputSplitBySpace = input.split(" ", 2);
-                Task toBeDeleted = arrayList.get(Integer.parseInt(inputSplitBySpace[1]) - 1);
-                ui.deleteMessage(toBeDeleted);
-                String taskToBeDeleted = inputSplitBySpace[1];
-                int indexToBeDeleted = Integer.parseInt(taskToBeDeleted) - 1;
-
-                taskList.deleteTasks(indexToBeDeleted, arrayList, ui);
+                try {
+                    String[] inputSplitBySpace = input.split(" ", 2);
+                    String taskToBeDeleted = inputSplitBySpace[1];
+                    int indexToBeDeleted = Integer.parseInt(taskToBeDeleted) - 1;
+                    if (indexToBeDeleted + 1 > Chitti.numberOfTasks | indexToBeDeleted < 0) {
+                        throw new ChittiException();
+                    }
+                    Task toBeDeleted = arrayList.get(indexToBeDeleted);
+                    ui.deleteMessage(toBeDeleted);
+                    taskList.deleteTasks(indexToBeDeleted, arrayList, ui);
+                }
+                catch(ChittiException e){
+                    ui.invalidIndexForDelete();
+                }
             }else if (input.startsWith("find")){
                 String[] inputSplitBySpace = input.split(" ", 2);
                 TaskList.find(arrayList, inputSplitBySpace[1], ui);

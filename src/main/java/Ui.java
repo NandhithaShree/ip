@@ -124,5 +124,26 @@ public class Ui {
     public void byeMessage(){
         System.out.println("Bye. Call me if you need help");
     }
+
+    /**
+     * Displays an error message when attempting to delete a task that does not exist.
+     */
+    public void invalidIndexForDelete() {
+        System.out.println("Please delete an existing task");
+    }
+
+    /**
+     * Displays an error message when attempting to mark a task that does not exist.
+     */
+    public void invalidIndexForMark() {
+        System.out.println("Please mark an existing task!");
+    }
+
+    /**
+     * Displays an error message when attempting to unmark a task that does not exist.
+     */
+    public void invalidIndexForUnmark() {
+        System.out.println("Please unmark an existing task!");
+    }
 }
 

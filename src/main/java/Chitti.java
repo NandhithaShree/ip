@@ -12,7 +12,7 @@ public class Chitti {
         Storage storage = new Storage();
 
         try {
-            storage.addToArrayList(chitti.arrayList, numberOfTasks);
+            storage.addToArrayList(chitti.arrayList);
         } catch (FileNotFoundException f) {
             System.out.println("file not found...");
         }
