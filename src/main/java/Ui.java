@@ -60,7 +60,7 @@ public class Ui {
      * Displays a message indicating a task has been unmarked.
      */
     public void unmarked(){
-        System.out.println("Oops, not done with this one yet? No worries, I’ve unmarked it for you!");
+        System.out.println("Oops, not done with this one yet? No worries, I've unmarked it for you!");
     }
 
     /**
