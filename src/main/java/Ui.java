@@ -94,7 +94,7 @@ public class Ui {
     /**
      * Displays an error message when the user inputs an unrecognized command.
      */
-    public void nonExistantcommand(){
+    public void nonExistantCommand(){
         System.out.println("Sorry, I'm unsure what that means. Try: todo, deadline, or event");
     }
 

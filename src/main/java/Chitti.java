@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Chitti {
@@ -10,12 +9,7 @@ public class Chitti {
     public static void main(String[] args) {
         Chitti chitti = new Chitti(); // Create an instance of Chitti
         Storage storage = new Storage();
-
-        try {
-            storage.addToArrayList(chitti.arrayList);
-        } catch (FileNotFoundException f) {
-            System.out.println("file not found...");
-        }
+        storage.addToArrayList(chitti.arrayList);
 
         chitti.ui.welcomeMessage();
         chitti.parser.parse(chitti.arrayList, chitti.ui, storage);

@@ -132,7 +132,7 @@ public class Parser {
                 String[] inputSplitBySpace = input.split(" ", 2);
                 TaskList.find(arrayList, inputSplitBySpace[1], ui);
             } else {
-                ui.nonExistantcommand();
+                ui.nonExistantCommand();
             }
             input = scanner.nextLine();
         }

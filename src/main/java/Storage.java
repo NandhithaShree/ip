@@ -28,43 +28,58 @@ public class Storage {
      * parses each task type (ToDo, Deadline, Event), and adds them to the ArrayList.
      *
      * @param arrayList The ArrayList of tasks where parsed tasks will be added.
-     * @throws FileNotFoundException If the file is not found or does not exist.
      */
-    public void addToArrayList(ArrayList<Task> arrayList ) throws FileNotFoundException {
-        File f = new File("./src/main/java/chitti.txt");
-        Scanner s = new Scanner(f);
-        String line;
-        while (s.hasNextLine()) {
-            line = s.nextLine();
-            if(line.startsWith("todo")){
-                String description = line.split("\\|")[2];
-                ToDo todo = new ToDo(description);
-                if(line.startsWith("todo|true|")){
-                    todo.addDone();
+    public void addToArrayList(ArrayList<Task> arrayList ) {
+        try {
+            File f = new File("./src/main/java/chitti.txt");
+            Scanner s = new Scanner(f);
+            String line;
+            while (s.hasNextLine()) {
+                line = s.nextLine();
+                if (line.startsWith("todo")) {
+                    String description = line.split("\\|")[2];
+                    ToDo todo = new ToDo(description);
+                    if (line.startsWith("todo|true|")) {
+                        todo.addDone();
+                    }
+                    arrayList.add(todo);
+                    Chitti.numberOfTasks++;
+                } else if (line.startsWith("deadline")) {
+                    String[] inputSplitByPipe = line.split("\\|", 4);
+                    String description = inputSplitByPipe[2];
+                    String deadline = inputSplitByPipe[3];
+                    Deadline taskDeadline = new Deadline(description, deadline);
+                    if (line.startsWith("deadline|true|")) {
+                        taskDeadline.addDone();
+                    }
+                    arrayList.add(taskDeadline);
+                    Chitti.numberOfTasks++;
+                } else if (line.startsWith("event")) {
+                    String[] inputSplitByPipe = line.split("\\|", 5);
+                    String description = inputSplitByPipe[2];
+                    String from = inputSplitByPipe[3];
+                    String to = inputSplitByPipe[4];
+                    Event event = new Event(description, from, to);
+                    if (line.startsWith("event|true|")) {
+                        event.addDone();
+                    }
+                    arrayList.add(event);
+                    Chitti.numberOfTasks++;
                 }
-                arrayList.add(todo);
-                Chitti.numberOfTasks++;
-            } else if(line.startsWith("deadline")){
-                String[] inputSplitByPipe = line.split("\\|",4);
-                String description = inputSplitByPipe[2];
-                String deadline = inputSplitByPipe[3];
-                Deadline taskDeadline = new Deadline(description, deadline);
-                if(line.startsWith("deadline|true|")){
-                    taskDeadline.addDone();
+            }
+        }
+        catch (FileNotFoundException e) {
+            File f = new File("./src/main/java/chitti.txt");
+            System.out.println("file not found...");
+            System.out.println("A new file to load your data will be created for you...");
+            if (!f.exists()) {
+                f.getParentFile().mkdirs(); // Create parent directories if necessary
+                try {
+                    f.createNewFile();
                 }
-                arrayList.add(taskDeadline);
-                Chitti.numberOfTasks++;
-            } else if(line.startsWith("event")){
-                String[] inputSplitByPipe = line.split("\\|",5);
-                String description = inputSplitByPipe[2];
-                String from = inputSplitByPipe[3];
-                String to = inputSplitByPipe[4];
-                Event event = new Event(description, from, to);
-                if(line.startsWith("event|true|")){
-                    event.addDone();
+                catch(IOException g){
+                    System.out.println("Something went wrong!");
                 }
-                arrayList.add(event);
-                Chitti.numberOfTasks++;
             }
         }
     }
