@@ -52,7 +52,7 @@ public class Parser {
                 }
             } else if (input.startsWith("todo")) {
                 try {
-                    if (input.equals("todo")) {
+                    if (input.trim().equals("todo")) {
                         throw new ChittiException();
                     }
                     String[] inputParts = input.split(" ", 2);
@@ -71,7 +71,7 @@ public class Parser {
                 }
             } else if(input.startsWith("deadline")) {
                 try {
-                    if(input.equals("deadline") | !input.contains("/by")){
+                    if(input.trim().equals("deadline") | !input.contains("/by")){
                         throw new ChittiException();
                     }
                     //contains deadline, and the rest
@@ -92,7 +92,7 @@ public class Parser {
                 }
             } else if(input.startsWith("event")){
                 try {
-                    if(input.equals("event") | !input.contains("/from") | !input.contains("/to")){
+                    if(input.trim().equals("event") | !input.contains("/from") | !input.contains("/to")){
                         throw new ChittiException();
                     }
                     //splits to event, and rest
